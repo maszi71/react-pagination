@@ -4,6 +4,7 @@ import Card from "./Card";
 import "bootstrap/dist/css/bootstrap.css";
 import { chunkData, calculateOffset } from "./helper/Helper";
 import Pagination from "./Pagination";
+import { LIMIT_ITEM } from "./constants/LimitItem";
 
 function App() {
   const [response, setResponse] = useState(null);
@@ -12,15 +13,15 @@ function App() {
   const getActivatedPage = (page) => {
     if (currentPage !== page) {
       setCurrentPage(page);
-      let offset = calculateOffset(page, 12);
-      const res = chunkData(12, offset);
+      let offset = calculateOffset(page, LIMIT_ITEM);
+      const res = chunkData(LIMIT_ITEM, offset);
       console.log(res);
       setResponse(res);
     }
   };
 
   useEffect(() => {
-    const res = chunkData(12, 0);
+    const res = chunkData(LIMIT_ITEM, 0);
     setResponse(res);
   }, []);
 
@@ -38,7 +39,7 @@ function App() {
         <Pagination
           onActivatedPage={getActivatedPage}
           count={response.count}
-          limit={12}
+          limit={LIMIT_ITEM}
           currentPage={currentPage}
         />
       )}
