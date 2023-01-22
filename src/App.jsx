@@ -15,7 +15,6 @@ function App() {
       setCurrentPage(page);
       let offset = calculateOffset(page, LIMIT_ITEM);
       const res = chunkData(LIMIT_ITEM, offset);
-      console.log(res);
       setResponse(res);
     }
   };

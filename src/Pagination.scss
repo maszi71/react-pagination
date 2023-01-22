@@ -7,31 +7,26 @@
     margin: 0;
     display: flex;
     list-style-type: none;
+    align-items: center;
   }
 }
 
 .page-link {
-    border: 1px solid #204b90 !important;
-    border-radius: 4px;
-    margin-right: 5px !important;
-    min-width: 28px;
-    height: 28px;
+    border: 1px solid #00000033 ;
+    margin-right: 5px ;
     font-size: 14px;
-    padding: 5px;
     color: #000000;
     cursor: pointer;
-    @media screen and (max-width: 374px) {
-      min-width: 25px;
-      height: 25px;
-       }
+    &:hover {
+        color: #000000;
+    }
 }
 .page-item.active {
     & .page-link {
-      border: 1px solid black;
-      border-radius: 4px !important;
-      background-color: #88888869 !important;
-      color: black !important;
-      box-shadow: none !important;
+      border: 1px solid #00000033;
+      background-color: #88888869 ;
+      color: black ;
+      box-shadow: none ;
     }
   }
 
