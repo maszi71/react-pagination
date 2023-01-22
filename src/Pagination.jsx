@@ -4,6 +4,8 @@
 import { useEffect, Fragment } from "react";
 import usePagination from "./hooks/use-pagination";
 import "./Pagination.scss";
+import arrowLeft from "./assets/arrow-left.png";
+import arrowRight from "./assets/arrow-right.png";
 
 const Pagination = (props) => {
   const { onActivatedPage, count, limit, currentPage } = props;
@@ -35,7 +37,7 @@ const Pagination = (props) => {
             style={{ pointerEvents: activatedPage === 1 ? "none" : "" }}
             onClick={previousButtonHandler}
           >
-           Left
+           <img src={arrowLeft} alt="arrow left" />
           </button>
         </li>
         {activatedPage > 3 && totalButtons > 5 ? (
@@ -89,7 +91,7 @@ const Pagination = (props) => {
             }}
             onClick={nextButtonHandler}
           >
-           Right
+          <img src={arrowRight} alt="arrow right" />
           </button>
         </li>
       </ul>

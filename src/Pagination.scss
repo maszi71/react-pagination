@@ -34,10 +34,15 @@
     cursor: pointer;
     display: block;
     padding: 0;
-    transform: translateY(-1px);
+    img {
+        width: 28px;
+    }
   }
   .previous-button {
-    margin-right: 5px;
+    margin-right: 10px;
+  }
+  .next-button {
+    margin-left: 5px;
   }
   .disabled-button {
     pointer-events: none;
