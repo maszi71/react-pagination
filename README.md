@@ -1,6 +1,6 @@
 # React-Pagination
 
-Custom pagination that works with Limit and Offset instead of regular page number.limit for number of items that should be displayed on screen and offset for starting point of items.
+Custom pagination that works with Limit and Offset instead of regular page number.limit for number of items that should be displayed on screen and offset specifies which item should be starting point.(EX: Limit =12 , offset can be 0 , 12 , 24 ,...)
 This project was bootstrapped with React and Bootstrap.
 
 ## Available Scripts
