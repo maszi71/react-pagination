@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import "./App.css";
-import { chunkData,calculateOffset } from "./helper/Helper";
+import "./App.scss";
+import Card from "./Card";
+import "bootstrap/dist/css/bootstrap.css";
+import { chunkData, calculateOffset } from "./helper/Helper";
 import Pagination from "./Pagination";
-
-
 
 function App() {
   const [response, setResponse] = useState(null);
@@ -13,7 +13,7 @@ function App() {
     if (currentPage !== page) {
       setCurrentPage(page);
       let offset = calculateOffset(page, 12);
-      const res =   chunkData(12 , offset);
+      const res = chunkData(12, offset);
       console.log(res);
       setResponse(res);
     }
@@ -25,16 +25,23 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      {
-        response &&  <Pagination
-        onActivatedPage={getActivatedPage}
-        count={response.count}
-        limit={12}
-        currentPage={currentPage}
-      />
-      }
-     
+    <div className="App container-fluid">
+      {response && (
+        <div
+          className={`row justify-content-lg-start justify-content-center  align-items-center`}>
+          {response.slicedData.map((item) => (
+            <Card key={item.id} item={item} />
+          ))}
+        </div>
+      )}
+      {response && (
+        <Pagination
+          onActivatedPage={getActivatedPage}
+          count={response.count}
+          limit={12}
+          currentPage={currentPage}
+        />
+      )}
     </div>
   );
 }

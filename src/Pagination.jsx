@@ -23,7 +23,6 @@ const Pagination = (props) => {
 
   useEffect(() => {
     onActivatedPage(activatedPage);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activatedPage]);
 
 

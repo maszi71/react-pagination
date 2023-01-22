@@ -46,17 +46,14 @@ const usePagination = ({count, limit, currentPage}) => {
 
       useEffect(() => {
         calculateTotalButtons();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [count]);
     
       useEffect(() => {
         createDisplayedButtons();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [totalButtons]);
     
       useEffect(() => {
         createDisplayedButtons();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [activatedPage]);
     
       useEffect(()=> {
