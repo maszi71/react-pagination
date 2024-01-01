@@ -1,67 +1,41 @@
-import { useCallback, useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import { MAX_BUTTONS_TO_SHOW } from "../constants/ConstNumbers";
 
-const usePagination = ({count, limit, currentPage}) => {
+const usePagination = (defaultPage, total) => {
+  const [displayedButtons, setDisplayedButtons] = useState([]);
+  const [activatedPage, setActivatedPage] = useState(defaultPage);
 
-    const [totalButtons, setTotalButtons] = useState(null);
-    const [displayedButtons, setDisplayedButtons] = useState([]);
-    const [activatedPage, setActivatedPage] = useState(currentPage);
+  const createDisplayedButtons = () => {
+    let sliceStart, sliceEnd;
 
-    const calculateTotalButtons = useCallback(() => {
-        let total = Math.ceil(count / limit);
-        setTotalButtons(total);
-      }, [count , limit]);
-
-      const createDisplayedButtons = useCallback(() => {
-        // begignig buttons
-        if (totalButtons) {
-          // total button less than 5
-          if(totalButtons < 5) {
-            setDisplayedButtons(Array.from({ length: totalButtons},(_, i) => i + 1));
-          }
-          // total button more than 5 and display first 5 buttons
-         else if (activatedPage <= 3) {
-            setDisplayedButtons(Array.from({ length: 5 },(_, i) => i + 1));
-          }
-          // end buttons
-          else if (activatedPage + 2 >= totalButtons) {
-            let startButton = totalButtons - 4;
-            let endButton = totalButtons;
-            setDisplayedButtons(Array(endButton - startButton + 1).fill().map(() => startButton++));
-          }
-          // middle buttons
-          else {
-            let startButton = activatedPage - 2;
-            let endButton = activatedPage + 2;
-            let createdArray = Array(endButton - startButton + 1)
-              .fill()
-              .map(() => startButton++);
-            setDisplayedButtons(createdArray);
-          }
-        }
-      },[totalButtons,activatedPage])
-
-    const  updateActivatedPage = (page) => {
-        setActivatedPage(page)
+    if (total <= MAX_BUTTONS_TO_SHOW) {
+      setDisplayedButtons(Array.from({ length: total }, (_, i) => i + 1));
     }
 
-      useEffect(() => {
-        calculateTotalButtons();
-      }, [count]);
-    
-      useEffect(() => {
-        createDisplayedButtons();
-      }, [totalButtons]);
-    
-      useEffect(() => {
-        createDisplayedButtons();
-      }, [activatedPage]);
-    
-      useEffect(()=> {
-        setActivatedPage(currentPage)
-      }, [currentPage])  
+    if (activatedPage <= 3) {
+      sliceStart = 1;
+      sliceEnd = MAX_BUTTONS_TO_SHOW;
+    } else if (activatedPage + 2 >= total) {
+      sliceStart = total - MAX_BUTTONS_TO_SHOW + 1;
+      sliceEnd = total;
+    } else {
+      sliceStart = activatedPage - 2;
+      sliceEnd = activatedPage + 2;
+    }
 
-      return {totalButtons,displayedButtons , activatedPage , updateActivatedPage}
+    setDisplayedButtons(
+      Array.from(
+        { length: sliceEnd - sliceStart + 1 },
+        (_, i) => i + sliceStart
+      )
+    );
+  };
 
-}
+  useEffect(() => {
+    createDisplayedButtons();
+  }, [activatedPage]);
+
+  return { displayedButtons, activatedPage, setActivatedPage };
+};
 
 export default usePagination;
