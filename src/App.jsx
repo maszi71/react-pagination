@@ -1,45 +1,36 @@
 import { useEffect, useState } from "react";
 import "./App.scss";
-import Card from "./Card";
+import List from "./components/List";
 import "bootstrap/dist/css/bootstrap.css";
 import { chunkData, calculateOffset } from "./helper/Helper";
-import Pagination from "./Pagination";
-import { LIMIT_ITEM } from "./constants/LimitItem";
+import Pagination from "./components/Pagination";
+import { LIMIT_ITEM } from "./constants/ConstNumbers";
 
 function App() {
   const [response, setResponse] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const getActivatedPage = (page) => {
-    if (currentPage !== page) {
-      setCurrentPage(page);
-      let offset = calculateOffset(page, LIMIT_ITEM);
-      const res = chunkData(LIMIT_ITEM, offset);
-      setResponse(res);
-    }
-  };
-
-  useEffect(() => {
+  const intialData = () => {
     const res = chunkData(LIMIT_ITEM, 0);
     setResponse(res);
+  };
+
+  const getActivatedPageHandler = (page) => {
+    const offset = calculateOffset(page, LIMIT_ITEM);
+    const res = chunkData(LIMIT_ITEM, offset);
+    setResponse(res);
+  };
+  useEffect(() => {
+    intialData();
   }, []);
 
   return (
     <div className="App container-fluid">
-      {response && (
-        <div
-          className={`row justify-content-lg-start justify-content-center  align-items-center`}>
-          {response.slicedData.map((item) => (
-            <Card key={item.id} item={item} />
-          ))}
-        </div>
-      )}
+      <List items={response?.slicedData} />
       {response && (
         <Pagination
-          onActivatedPage={getActivatedPage}
-          count={response.count}
+          onGetActivatedPage={getActivatedPageHandler}
+          count={response?.count}
           limit={LIMIT_ITEM}
-          currentPage={currentPage}
         />
       )}
     </div>
