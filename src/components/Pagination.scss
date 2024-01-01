@@ -1,0 +1,29 @@
+.pagination-wrapper {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  .pagination {
+    margin: 0;
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+  }
+}
+
+.next-button,
+.previous-button {
+  cursor: pointer;
+  display: block;
+  padding: 0;
+  img {
+    width: 28px;
+  }
+}
+.previous-button {
+  margin-right: 10px;
+}
+.next-button {
+  margin-left: 5px;
+}
+.disabled-button {
+  pointer-events: none;
+}
